@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace AdventOfCode.Day01
 {
-    [TestFixture]
     public class Tests
     {
-        [Test]
+        private readonly ITestOutputHelper _console;
+
+        public Tests(ITestOutputHelper console)
+        {
+            _console = console;
+        }
+
+        [Fact]
         public void Part1()
         {
             var fuel = PuzzleInput.Modules.Sum(FuelRequired);
             
             //3393938
-            Console.WriteLine(fuel);
+            _console.WriteLine(fuel.ToString());
         }
         
-        [Test]
+        [Fact]
         public void Part2()
         {
             var totalFuel = 0;
@@ -34,7 +41,7 @@ namespace AdventOfCode.Day01
             }
             
             //5088037
-            Console.WriteLine(totalFuel);
+            _console.WriteLine(totalFuel.ToString());
         }
 
         private int FuelRequired(int moduleMass)
