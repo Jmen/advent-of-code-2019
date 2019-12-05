@@ -99,9 +99,9 @@ namespace AdventOfCode.Day02
         [Fact]
         public void Part2()
         {
-            for (int noun = 0; noun < 100; noun++)
+            foreach (int noun in Enumerable.Range(0, 99))
             {
-                for (int verb = 0; verb < 100; verb++)
+                foreach (int verb in Enumerable.Range(0, 99))
                 {
                     var input = PuzzleInput.Program;
 
