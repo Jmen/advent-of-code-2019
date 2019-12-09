@@ -116,5 +116,25 @@ namespace AdventOfCode.Day06
             
             return objects.Count();
         }
+        
+//        private int Count2(List<string> map)
+//        {
+//            var entries = new List<(string Orbitie, string Orbiter)>();
+//            
+//            foreach (var entry in map)
+//            {
+//                var parts = entry.Split(')');
+//                entries.Add((parts[0], parts[1]));
+//            }
+//
+//            var objects = entries.Select(x => x.Orbiter).Distinct();
+//
+//            var orbits = 0;
+//            
+//            foreach (var spaceObject in objects)
+//            {
+//                
+//            }
+//        }
     }
 }
