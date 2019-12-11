@@ -10,12 +10,18 @@ namespace AdventOfCode.Day06
         // (x) one direct orbit
         // (x) multiple direct orbits
         // (x) one indirect orbit
-        // ( ) direct and indirect orbits
+        // (x) single chain on object
+        // ( ) tree of objects
+        // ( ) object not specified in order
         
         [Fact]
         public void OneDirectOrbit()
         {
             var map = new List<string> {"COM)A"};
+            
+            //
+            // COM - A
+            //
             
             var result = Count(map);
             
@@ -40,6 +46,49 @@ namespace AdventOfCode.Day06
             result.ShouldBe(3);
         }
 
+
+        
+//        [Fact]
+//        public void DirectAndIndirectOrbits()
+//        {
+//            var map = new List<string>
+//            {
+//                "COM)A", 
+//                "A)B",
+//                "COM)C"
+//            };
+//            
+//            //     A - B
+//            //    /
+//            // COM
+//            //    \
+//            //     C
+//            
+//            var result = Count(map);
+//            
+//            result.ShouldBe(4);
+//        }
+        
+        [Fact]
+        public void ChainOfThreeObjects()
+        {
+            var map = new List<string>
+            {
+                "COM)A", 
+                "A)B",
+                "B)C"
+            };
+            
+
+            //    
+            // COM - A - B - C
+            //    
+            
+            var result = Count(map);
+            
+            result.ShouldBe(6);
+        }
+        
         [Fact]
         public void MultipleDirectOrbits()
         {
@@ -59,82 +108,23 @@ namespace AdventOfCode.Day06
             
             result.ShouldBe(2);
         }
-        
-        [Fact]
-        public void DirectAndIndirectOrbits()
-        {
-            var map = new List<string>
-            {
-                "COM)A", 
-                "A)B",
-                "COM)C"
-            };
-            
-            //     A - B
-            //    /
-            // COM
-            //    \
-            //     C
-            
-            var result = Count(map);
-            
-            result.ShouldBe(4);
-        }
-        
-        [Fact]
-        public void LongerIndirectOrbits()
-        {
-            var map = new List<string>
-            {
-                "COM)A", 
-                "A)B",
-                "B)C"
-            };
-            
-
-            //    
-            // COM - A - B - C
-            //    
-            
-            var result = Count(map);
-            
-            result.ShouldBe(6);
-        }
 
         private int Count(List<string> map)
         {
-            var objects = new List<string>();
+            var links = new List<(string Orbitie, string Orbiter)>();
             
             foreach (var entry in map)
             {
                 var parts = entry.Split(')');
-                objects.Add(parts[0]);
-                objects.Add(parts[1]);
+                links.Add((parts[0], parts[1]));
             }
-
-            objects.RemoveAll(x => x == "COM");
             
-            return objects.Count();
+            // 1
+            // 1 + 2
+            // 1 + 2 + 3
+            // 1 + 2 + 3 + 4
+
+            return Enumerable.Range(1, links.Count).Sum();
         }
-        
-//        private int Count2(List<string> map)
-//        {
-//            var entries = new List<(string Orbitie, string Orbiter)>();
-//            
-//            foreach (var entry in map)
-//            {
-//                var parts = entry.Split(')');
-//                entries.Add((parts[0], parts[1]));
-//            }
-//
-//            var objects = entries.Select(x => x.Orbiter).Distinct();
-//
-//            var orbits = 0;
-//            
-//            foreach (var spaceObject in objects)
-//            {
-//                
-//            }
-//        }
     }
 }
